@@ -1,2 +1,2 @@
 #!/bin/bash
-if test "$file_owner" = "guillaume" then sudo chown vincent hello fi 
+chown --from=guillaume vincent hello 

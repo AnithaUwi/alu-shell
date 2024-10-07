@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # This script groups visitors by IP and HTTP status code from an Apache log file
 
-# Process the log file (replace /path/to/apache.log with your actual log file path)
-awk '{print $1, $9}' /path/to/apache.log | 
-    awk '{count[$1][$2]++} END {for (ip in count) for (code in count[ip]) print count[ip][code], ip, code}' | 
-    sort -nr | 
-    head -n 10
+# Use awk to process the log file (replace /path/to/apache.log with your actual log file path)
+awk '{count[$1,$9]++} END {for (key in count) {split(key, arr, SUBSEP); print count[key], arr[1], arr[2]}}' /path/to/apache.log | 
+	sort -nr | 
+	head -n 10
 

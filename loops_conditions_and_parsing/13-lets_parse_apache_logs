@@ -1,6 +1,29 @@
 #!/usr/bin/env bash
 # This script extracts IP addresses and HTTP status codes from an Apache log file
 
-# Use awk to process the log file (replace /path/to/apache-access.log with your actual log file path)
-awk '{print $1, $9}' /path/to/apache-access.log
+# Define the log file path
+log_file="/path/to/apache-access.log"
+
+# Check if the log file exists
+if [[ ! -f "$log_file" ]]; then
+	    echo "Log file does not exist."
+	        exit 1
+fi
+
+# Check if the log file is empty
+if [[ ! -s "$log_file" ]]; then
+	    echo "Log file is empty."
+	        exit 0
+fi
+
+# Process the log file using awk
+awk '
+{
+	    # Check if the line is correctly formatted (at least 9 fields)
+	        if (NF >= 9) {
+			        print $1, $9
+				    } else {
+				            print "Incorrect format for line:", $0
+					        }
+					}' "$log_file"
 

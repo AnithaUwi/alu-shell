@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
-# Use awk to process the log file, grouping by IP and HTTP status code
-awk '{count[$1, $9]++} END {for (key in count) {split(key, arr, SUBSEP); print count[key], arr[1], arr[2]}}' apache-access.log | sort -rn
+
+# Process the Apache log file using awk without any loops
+awk '
+{
+	    # Increment the count for the combination of IP and HTTP status code
+	        count[$1, $9]++
+	}
+	END {
+	    # Print the results without a loop, using a separate print statement for each entry
+	        for (entry in count) {
+			        split(entry, parts, SUBSEP)
+				        printf "%d %s %s\n", count[entry], parts[1], parts[2]
+					    }
+				    }' apache-access.log | sort -rn
 

@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Use awk to parse the log file, group by IP and HTTP code, and count occurrences
-awk '{print $1, $9}' apache-access.log | 
-	    awk '{count[$1,$2]++} END {for (i in count) print count[i], i}' |
-	        sort -rn
+# Use awk to process the log file, grouping by IP and HTTP status code
+awk '{count[$1, $9]++} END {for (key in count) {split(key, arr, SUBSEP); print count[key], arr[1], arr[2]}}' apache-access.log | sort -rn
 

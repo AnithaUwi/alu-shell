@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Process the Apache log file using awk without any loops
 awk '
 {

@@ -1,4 +1,5 @@
-ndefinitely writes "I am alive!"and pause 2 second in between every I am alive
+#!/usr/bin/env bash
+#Indefinitely writes "I am alive!"and pause 2 second in between every I am alive
 
 a=1
 while [ $a -ge 1 ]

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Create a PID file
+echo $$ > /var/run/myscript.pid
+
+# Function to clean up on exit
+cleanup() {
+    echo "Cleaning up..."
+    rm -f /var/run/myscript.pid
+    exit
+}
+
+# Trap signals
+trap 'echo "I hate the kill command"; cleanup' SIGTERM
+trap 'echo "Y U no love me?!";' SIGINT
+trap 'cleanup' SIGQUIT
+
+# Display message indefinitely
+while true; do
+    echo "To infinity and beyond"
+    sleep 1
+done
+
